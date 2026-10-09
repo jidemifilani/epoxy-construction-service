@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b2545"/>
+      <stop offset=".6" stop-color="#103f6e"/>
+      <stop offset="1" stop-color="#0b6349"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cfe3f5"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0v48" fill="none" stroke="#ffffff" stroke-width=".8" opacity=".09"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#sky)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <path d="M0 470h1200v160H0z" fill="url(#floor)"/>
+  <path d="M0 470h1200v6H0z" fill="#14a077"/>
+  <g stroke="#a9c9e6" stroke-width="1.2" opacity=".5">
+    <path d="M0 520h1200M0 575h1200"/>
+  </g>
+
+  <!-- Crane -->
+  <g stroke="#2bbd8f" stroke-width="4" fill="none" stroke-linecap="round" opacity=".85">
+    <path d="M980 470V150"/>
+    <path d="M860 168h250"/>
+    <path d="M980 150 860 168M980 150l130 18"/>
+    <path d="M910 168v52"/>
+    <circle cx="910" cy="230" r="10" fill="#2bbd8f" stroke="none"/>
+  </g>
+
+  <!-- Mark -->
+  <g transform="translate(96 92)">
+    <circle cx="34" cy="34" r="32" fill="none" stroke="#ffffff" stroke-width="2" opacity=".5"/>
+    <path d="M18 42v-8a16 16 0 0 1 32 0v8" fill="none" stroke="#2bbd8f" stroke-width="3.2" stroke-linecap="round"/>
+    <path d="M26 42 34 22l8 20z" fill="#ffffff"/>
+    <path d="M18 48h32" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/>
+  </g>
+
+  <text x="96" y="268" fill="#ffffff" font-family="Georgia, serif" font-size="74" font-weight="700">Iris Epoxy Service</text>
+  <text x="96" y="330" fill="#9fe3c5" font-family="Helvetica, Arial, sans-serif" font-size="27" letter-spacing="5">EPOXY FLOORING SPECIALISTS</text>
+  <text x="96" y="398" fill="#ffffff" font-family="Georgia, serif" font-size="40" opacity=".9">Floors that outlast the building around them.</text>
+</svg>

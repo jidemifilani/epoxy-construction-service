@@ -1,0 +1,114 @@
+/* ==========================================================================
+   Shop, cart and checkout. Builds on the tokens in main.css.
+   ========================================================================== */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Cart icon in the header, with a count badge */
+.head__cart {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  color: var(--ink-900);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: border-color .25s var(--ease), color .25s var(--ease);
+}
+.head__cart:hover { border-color: var(--green-500); color: var(--green-700); }
+.head__cart svg { width: 19px; height: 19px; }
+.head__cart-count {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  display: grid;
+  place-items: center;
+  border-radius: 100px;
+  background: var(--green-600);
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.head__cart-count:empty { display: none; }
+
+/* Product cards */
+.shop-card { gap: .7rem; }
+.shop-card__head { display: flex; align-items: center; gap: .7rem; }
+.shop-card__head h3 { margin: 0; font-size: 1.2rem; }
+.shop-card__icon { width: 26px; height: 26px; color: var(--green-600); flex: 0 0 auto; }
+.shop-card__desc { margin: 0; font-size: .95rem; }
+.shop-card__stock { margin: 0; font-size: .9rem; color: #96281b; }
+.shop-card__form {
+  display: grid;
+  gap: .9rem;
+  margin-top: auto;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--line-soft);
+}
+.shop-card__form .field span { font-size: .8rem; font-weight: 600; letter-spacing: .04em; color: var(--ink-900); }
+.shop-card__form select,
+.shop-card__form input[type="number"] {
+  width: 100%;
+  padding: .75rem .9rem;
+  font: 400 .95rem/1.4 var(--sans);
+  color: var(--ink-900);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.shop-card__form select:focus,
+.shop-card__form input:focus { outline: none; border-color: var(--green-500); box-shadow: 0 0 0 3px rgba(20, 160, 119, .16); }
+.shop-card__form .btn { justify-content: center; }
+
+/* Order lines in the checkout and confirmation rails */
+.order-lines { list-style: none; margin: .6rem 0 0; padding: 0; display: grid; gap: .65rem; }
+.order-lines li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: .65rem;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: .92rem;
+}
+.order-lines li:last-child { border-bottom: 0; }
+.order-lines strong { white-space: nowrap; color: var(--ink-900); }
+
+/* Bold text inside the dark banner must be light, or it disappears into it. */
+.banner__lede strong, .hero__lede strong { color: #fff; }
+
+/* The header gained a cart icon. Between the desktop and tablet breakpoints
+   there is no room for every nav item at full size, so tighten the nav and
+   drop the tagline under the logo until the screen is wide enough again. */
+@media (min-width: 981px) and (max-width: 1320px) {
+  .nav__link { padding: .6rem .4rem; font-size: .8rem; }
+  .brand__text small { display: none; }
+  .head__cart { width: 38px; height: 38px; }
+}
+
+@media (max-width: 680px) {
+  .head__cart { width: 38px; height: 38px; }
+}
+
+/* Product photos on the shop cards: a fixed 4:3 frame so every card lines up. */
+.shop-card__photo {
+  margin: -1.7rem -1.7rem 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--paper-2);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.shop-card__photo img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform .8s var(--ease-out); }
+.shop-card:hover .shop-card__photo img { transform: scale(1.04); }

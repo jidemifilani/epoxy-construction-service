@@ -1,0 +1,4 @@
+# Media uploads: serve files, never execute them.
+RemoveHandler .php .phtml .phar
+RemoveType .php .phtml .phar
+php_flag engine off

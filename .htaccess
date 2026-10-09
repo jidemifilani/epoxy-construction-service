@@ -1,0 +1,81 @@
+# ============================================================================
+#  Iris Epoxy Service - Apache configuration
+#  Clean, extension-less URLs; the original .php paths keep working, so no
+#  existing link or bookmark is ever redirected away.
+# ============================================================================
+
+ErrorDocument 404 /iris-epoxy-service/404.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /iris-epoxy-service/
+
+  # Friendly alias so /home and / both reach the homepage.
+  RewriteRule ^home/?$ index.php [L]
+
+  # SEO endpoints served from their conventional dot-extension paths.
+  RewriteRule ^robots\.txt$  robots.php  [L]
+  RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+  # Note on /services: it is a real directory holding the three service pages,
+  # so mod_dir issues its own 301 from /services to /services/ before any rule
+  # here is consulted. That redirect is correct and cacheable, and the site
+  # links to the canonical /services/ form so no visitor ever follows it.
+
+  # Blog articles: /blog/<slug> is handled by article.php.
+  # /blog itself falls through to the clean-URL rule below and hits blog.php.
+  RewriteRule ^blog/([A-Za-z0-9-]+)/?$ article.php?slug=$1 [L,QSA]
+
+  # Location pages: /epoxy-flooring/<place> is handled by location.php.
+  RewriteRule ^epoxy-flooring/([a-z0-9-]+)/?$ location.php?slug=$1 [L,QSA]
+
+  # Careers: /careers/<role> is handled by job.php.
+  RewriteRule ^careers/([a-z0-9-]+)/?$ job.php?slug=$1 [L,QSA]
+
+  # Clean URLs: serve <path>.php when <path> is requested with no extension.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.php -f
+  RewriteRule ^(.*)$ $1.php [L]
+</IfModule>
+
+<IfModule mod_dir.c>
+  DirectoryIndex index.php
+</IfModule>
+
+# No directory listings anywhere.
+Options -Indexes
+
+# Application internals are only ever reached through include(), never by URL.
+# Without this, /includes/header.php would run on its own and emit a broken page.
+RedirectMatch 404 ^/iris-epoxy-service/(includes|config|storage|database|admin/includes)(/|$)
+
+# Uploaded files are content, never code. Nothing under assets/uploads can run as PHP.
+<IfModule mod_rewrite.c>
+  RewriteRule ^assets/uploads/.*\.(php|phtml|phar|cgi|pl|pyc)$ - [F,L]
+</IfModule>
+
+# Never serve notes, logs or captured leads over HTTP, wherever they sit.
+<FilesMatch "\.(sql|md|ini|log|csv)$">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css               "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType image/svg+xml          "access plus 30 days"
+  ExpiresByType image/jpeg             "access plus 30 days"
+  ExpiresByType image/png              "access plus 30 days"
+  ExpiresByType image/webp             "access plus 30 days"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>

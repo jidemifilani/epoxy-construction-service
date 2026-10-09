@@ -1,0 +1,23 @@
+# Credentials & secrets
+storage/.cpanel-credentials.txt
+storage/.first-admin-password.txt
+
+# Uploaded CVs / resumes (private)
+storage/resumes/
+
+# Database dumps & backups
+storage/iris-live-seed.sql
+storage/backups/
+
+# PHP session / cache files
+*.cache
+/sessions/
+
+# OS & editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp
+
+# Deployment helper (contains cPanel token in script constants)
+tools/_deploy_mobile_css.py
